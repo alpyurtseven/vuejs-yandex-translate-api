@@ -1,28 +1,46 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <h1 class="text-center">Vue-Translator</h1>
+        <h5 class="text-center">Vue.js ile Translator</h5>
+        <br>
+        <div class="row">
+           <div class="col-md-12 text-center">
+              <SearchForm @translatedEvent="addHistory($event)"/>
+              <h3 style="color:black" >{{translatedText}}</h3>
+              <History :history="history" v-if="history.length >0" />
+            </div>
+        </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import History from "./components/history"
+import SearchForm from "./components/searchForm"
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
+    components:{
+        History,
+        SearchForm
+    },
+    data(){
+      return{
+      translatedText : "",
+      history : []
+      }
+    },
+    methods : {
+      addHistory(translatePack){
+          this.translatedText = translatePack.toText
+          this.history.push(translatePack)
+
+      }
+    }
+    
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body{
+    background-color: slategray;
+  }
+ 
 </style>
